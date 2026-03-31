@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images:{
+    domains: ["http://teamplatedev.github.io"],
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
