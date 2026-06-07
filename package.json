@@ -9,10 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
+    "@supabase/supabase-js": "^2.106.2",
+    "bcryptjs": "^3.0.3",
+    "framer-motion": "^12.38.0",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

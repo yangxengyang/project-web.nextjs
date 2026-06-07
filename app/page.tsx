@@ -1,33 +1,17 @@
+import Spline from "@splinetool/react-spline";
 import About from "./components/about";
+import BinaryBackground from "./components/binary_ui";
+import Contact from "./components/connect";
 import Hero from "./components/hero";
+import Skills from "./components/skills";
 
 export default function Home() {
   return (
-    <main>
+   <main>
     <Hero/>
-      <About
-        title="IT Specialized Company Based in Laos"
-        subTitle="We are a Laos-based IT startup aiming for the global market."
-        description="We are targeting not only the local market in Laos but also neighboring Southeast Asian countries and the Northeast Asian market, including South Korea."
-        image="https://teamplatedev.github.io/iict-lecture/public/images/animation_0.gif"
-        type="A"
-      />
-
-      <About
-        title="IT Specialized Company Based in Laos"
-        subTitle="We are a Laos-based IT startup aiming for the global market."
-        description="We are targeting not only the local market in Laos but also neighboring Southeast Asian countries and the Northeast Asian market, including South Korea"
-        image="https://teamplatedev.github.io/iict-lecture/public/images/animation_1.gif"
-        type="B"
-      />
-
-      <About
-        title="IT Specialized Company Based in Laos"
-        subTitle="We are a Laos-based IT startup aiming for the global market."
-        description="We are targeting not only the local market in Laos but also neighboring Southeast Asian countries and the Northeast Asian market, including South Korea"
-        image="https://teamplatedev.github.io/iict-lecture/public/images/animation_2.gif"
-        type="A"
-      />
-    </main>
+      <About/>
+      <Skills/>
+    <Contact/>
+   </main>
   );
 }

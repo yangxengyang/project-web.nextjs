@@ -1,7 +1,7 @@
 "use client";
 
 import { BiLogoGmail } from "react-icons/bi";
-import { FaFacebook, FaWhatsapp, FaGithub } from "react-icons/fa";
+import { FaFacebook, FaWhatsapp, FaGithub, FaTiktok } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 import { TbBackground } from "react-icons/tb";
 
@@ -27,6 +27,14 @@ const SOCIAL_LINKS = [
     color: "#ffffff",
     hoverBg: "#ffffff15",
   },
+  {
+   icon: FaTiktok,
+   href: "",
+   label: "TikTok",
+   color: "#ffffff",
+   hoverBg: "#ffffff15"
+  },
+  
 ];
 
 const NAV_LINKS = [
@@ -73,13 +81,11 @@ export default function Footer() {
               className="text-white font-bold text-2xl mb-3 leading-tight"
               style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "-0.01em" }}
             >
-              TEAMPLATE
+              XENG_DEV
               <br />
-              <span style={{ color: "#63c8ff" }}>Sole co., Ltd</span>
+              <span style={{ color: "#63c8ff" }}>Front end Developer</span>
             </h2>
             <p className="text-white/40 text-sm leading-relaxed font-light">
-              ICT Center, Saysettha
-              <br />
               Vientiane, Lao PDR
             </p>
           </div>
@@ -145,7 +151,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-mono text-white/25 text-[11px] tracking-wider">
-            © {year} TEAMPLATE Sole co., Ltd. All rights reserved.
+            © {year} XENG_DEV Full Stack Development
           </p>
           <p className="font-mono text-[#63c8ff]/40 text-[11px] tracking-wider">
             Built with Next.js · Tailwind CSS
