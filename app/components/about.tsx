@@ -1,264 +1,144 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import { LuDownload } from 'react-icons/lu';
 import { PiCodeBold, PiGlobeBold, PiMedalBold } from "react-icons/pi";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
-};
+import { FcDownload } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
 
 const stats = [
-  { icon: <PiCodeBold size={28} />, number: '11', label: 'Total Projects', desc: 'Innovative web solutions crafted' },
-  { icon: <PiMedalBold size={28} />, number: '7',  label: 'Certificates',   desc: 'Professional skills validated'   },
-  { icon: <PiGlobeBold size={28} />, number: '3',  label: 'Years Active',   desc: 'Continuous learning journey'     },
+  { icon: <PiCodeBold className="text-[28px]" />, number: '11', label: 'Total Projects', desc: 'Innovative web solutions crafted' },
+  { icon: <PiMedalBold className="text-[28px]" />, number: '7',  label: 'Certificates',   desc: 'Professional skills validated'   },
+  { icon: <PiGlobeBold className="text-[28px]" />, number: '3',  label: 'Years Active',   desc: 'Continuous learning journey'     },
 ];
 
 const skills = ['HTML & CSS', 'JavaScript', 'React.js', 'Next.js', 'Tailwind CSS', 'Figma', 'Git', 'Node.js'];
 
-export default function About( ) {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end start'] });
-  const yParallax = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-
+export default function About() {
   return (
-    
     <div
-      ref={containerRef}
       id="About"
-      className="min-h-screen text-white overflow-hidden relative"
-      style={{ background: '#060b18', fontFamily: "'DM Sans', sans-serif" }}
+      className="min-h-screen text-white overflow-hidden relative bg-[#060b18] font-sans selection:bg-[#4f8ef7] selection:text-[#060b18]"
     >
-      {/* ─── Google Fonts ─── */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;600&display=swap');
-        * { box-sizing: border-box; }
-        ::selection { background: #4f8ef7; color: #060b18; }
-      `}</style>
-
       {/* ─── Ambient background ─── */}
       <div
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          position: 'absolute', inset: 0, zIndex: 0,
           background: 'radial-gradient(ellipse 70% 50% at 70% 20%, rgba(79,142,247,0.15) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(30,64,175,0.12) 0%, transparent 60%)',
         }}
-     />
-      <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '100px 32px 80px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
+      />
+
+      <section className="relative z-10 max-w-[1200px] mx-auto px-8 pt-[100px] pb-20">
+        <div className="flex flex-col gap-16">
 
           {/* Top row: avatar + intro text */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
             {/* ── Left: avatar ── */}
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              style={{ position: 'relative' }}
-            >
+            <div className="relative">
               {/* Floating label */}
-              <motion.div
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                style={{
-                  position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)',
-                  background: '#4f8ef7', color: '#060b18', borderRadius: '999px',
-                  padding: '4px 20px', fontSize: '12px', fontFamily: "'JetBrains Mono', monospace",
-                  fontWeight: 600, letterSpacing: '0.08em', whiteSpace: 'nowrap', zIndex: 10,
-                }}
-              >
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#4f8ef7] text-[#060b18] rounded-full px-5 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap z-10">
                 ✦ Available for work
-              </motion.div>
+              </div>
 
               {/* Avatar ring */}
-              <div style={{ position: 'relative', width: '380px', maxWidth: '100%', margin: '0 auto' }}>
-                <div style={{
-                  borderRadius: '24px', overflow: 'hidden',
-                  border: '1px solid rgba(79,142,247,0.3)',
-                  aspectRatio: '1 / 1.1', position: 'relative', background: '#0a1020',
-                }}>
+              <div className="relative w-full max-w-[380px] mx-auto">
+                <div className="border border-[#4f8ef7]/30 bg-[#0a1020] rounded-[24px] overflow-hidden aspect-[1/1.1] relative">
                   <Image
                     src="/image/myimage.png"
-                    alt="Eki Zulfar Rachman"
+                    alt="Mr Yangxeng YANG"
                     fill
-                    style={{ objectFit: 'cover', filter: 'grayscale(30%) contrast(1.05)' }}
+                    className="object-cover grayscale-[30%] contrast-[1.05]"
                   />
                   {/* Bottom gradient overlay */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'linear-gradient(to top, rgba(12,11,9,0.85) 0%, transparent 50%)',
-                  }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0c0b09]/85 via-transparent to-transparent" />
+                  
                   {/* Name inside image */}
-                  <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px' }}>
-                    <p style={{
-                      fontFamily: "'JetBrains Mono', monospace", fontSize: '11px',
-                      color: '#4f8ef7', letterSpacing: '0.15em', marginBottom: '6px',
-                    }}>
-                      FRONT-END DEVELOPER
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-xs text-[#4f8ef7] tracking-widest mb-1.5 font-semibold">
+                      SOFTWARE DEVELOPER
                     </p>
-                    <p style={{
-                      fontFamily: "'Playfair Display', serif", fontSize: '26px',
-                      fontWeight: 900, lineHeight: 1.1, margin: 0,
-                    }}>
-                      Mr Yangxeng<br />YANG
+                    <p className="text-white font-bold text-2xl mb-3 leading-tight">
+                      Mr Yangxeng YANG
                     </p>
                   </div>
                 </div>
 
-                {/* Floating experience badge */}
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
-                  style={{
-                    position: 'absolute', top: '30px', right: '-24px',
-                    background: '#0a1020', border: '1px solid rgba(79,142,247,0.4)',
-                    borderRadius: '16px', padding: '12px 18px', backdropFilter: 'blur(10px)',
-                  }}
-                >
-                  <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '22px', fontWeight: 600, color: '#4f8ef7', margin: 0, lineHeight: 1 }}>3+</p>
-                  <p style={{ fontSize: '11px', color: '#888', margin: '4px 0 0', whiteSpace: 'nowrap' }}>Years exp.</p>
-                </motion.div>
+                {/* Experience badge (Static - No floating effect) */}
+                <div className="absolute top-[30px] -right-6 bg-[#0a1020] border border-[#4f8ef7]/40 rounded-[16px] px-[18px] py-3 backdrop-blur-[10px]">
+                  <p className="text-[22px] font-bold text-[#4f8ef7] m-0 leading-none">3+</p>
+                  <p className="text-[11px] text-[#888] mt-1 mb-0 whitespace-nowrap">Years exp.</p>
+                </div>
 
                 {/* Glow */}
-                <div style={{
-                  position: 'absolute', bottom: '-30px', left: '50%', transform: 'translateX(-50%)',
-                  width: '200px', height: '60px',
-                  background: 'rgba(79,142,247,0.25)', filter: 'blur(30px)', borderRadius: '50%', zIndex: -1,
-                }} />
+                <div className="absolute -bottom-[30px] left-1/2 -translate-x-1/2 w-[200px] h-[60px] bg-[#4f8ef7]/25 blur-[30px] rounded-full -z-10" />
               </div>
-            </motion.div>
+            </div>
 
             {/* ── Right: text content ── */}
-            <motion.div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-              <motion.p
-                custom={0} variants={fadeUp} initial="hidden" animate="show"
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace", fontSize: '12px',
-                  color: '#4f8ef7', letterSpacing: '0.2em', margin: 0,
-                }}
-              >
+            <div className="flex flex-col gap-7">
+              <p className="text-xs text-[#4f8ef7] tracking-[0.15em] m-0 font-semibold">
                 — HELLO, WORLD / 2026
-              </motion.p>
+              </p>
 
-              <motion.h1
-                custom={1} variants={fadeUp} initial="hidden" animate="show"
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: 'clamp(44px, 5vw, 72px)',
-                  fontWeight: 900, lineHeight: 1.05,
-                  margin: 0,
-                }}
-              >
+              <h1 className="text-[36px] sm:text-[4.5vw] lg:text-[60px] font-extrabold leading-[1.15] m-0">
                 Crafting{' '}
-                <em style={{ color: '#4f8ef7', fontStyle: 'italic' }}>digital</em>
+                <span className="text-[#4f8ef7]">digital</span>
                 <br />
                 experiences<br />
-                <span style={{ color: '#444' }}>that matter.</span>
-              </motion.h1>
+                <span className="text-[#444]">that matter.</span>
+              </h1>
 
-              <motion.p
-                custom={2} variants={fadeUp} initial="hidden" animate="show"
-                style={{
-                  fontSize: '16px', lineHeight: 1.8, color: '#999',
-                  maxWidth: '420px', margin: 0,
-                }}
-              >
-                  I'm Xeng, a Computer Science student and front-end developer
-          passionate about creating beautiful, scalable, and interactive
-          web applications. I love turning ideas into real digital products.
-              </motion.p>
+              <p className="text-base text-[#999] leading-[1.7] max-w-[420px] m-0">
+                I'm Xeng, a Computer Science student and Software developer
+                passionate about creating beautiful, scalable, and interactive
+                web applications. I love turning ideas into real digital products.
+              </p>
 
               {/* CTA buttons */}
-              <motion.div
-                custom={3} variants={fadeUp} initial="hidden" animate="show"
-                style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}
-              >
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.04, backgroundColor: '#6fa8f9' }}
-                  whileTap={{ scale: 0.97 }}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '10px',
-                    padding: '14px 28px', background: '#4f8ef7', color: '#060b18',
-                    borderRadius: '12px', fontWeight: 500, fontSize: '15px',
-                    textDecoration: 'none', cursor: 'pointer',
-                    transition: 'background 0.2s',
-                  }}
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://github.com/yangxengyang"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#177CE8] text-white px-[2.2rem] py-[0.82rem] rounded-[50px] text-[0.9rem] font-semibold no-underline inline-flex items-center gap-2.5 transition duration-300 hover:bg-[#177CE8]/90"
                 >
-                  <span>
-                    <LuDownload/>
-                </span> Download CV
-                </motion.a>
+                  <FaGithub size={22} />
+                  View on GitHub
+                </a>
 
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.04, borderColor: '#4f8ef7', color: '#4f8ef7' }}
-                  whileTap={{ scale: 0.97 }}
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '10px',
-                    padding: '14px 28px', background: 'transparent',
-                    border: '1px solid rgba(255,255,255,0.15)', color: '#ccc',
-                    borderRadius: '12px', fontWeight: 500, fontSize: '15px',
-                    textDecoration: 'none', cursor: 'pointer',
-                    transition: 'border-color 0.2s, color 0.2s',
-                  }}
+                <a
+                  href="./My CV.pdf"
+                  className="bg-transparent text-white border border-white/35 px-[2.2rem] py-[0.82rem] rounded-[50px] text-[0.9rem] font-semibold cursor-pointer no-underline inline-flex items-center gap-2 transition duration-300 hover:bg-blue-100/15"
                 >
-                  <span style={{ fontFamily: 'monospace' }}>&lt;/&gt;</span> View Projects
-                </motion.a>
-              </motion.div>
-            </motion.div>
+                  <FcDownload size={20}/>
+                  Download CV
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* ─── Divider ─── */}
-          <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, rgba(79,142,247,0.4), transparent)' }} />
+          <div className="h-[1px] bg-gradient-to-r from-transparent via-[#4f8ef7]/40 to-transparent" />
 
           {/* ─── Stats row ─── */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {stats.map((stat, i) => (
-              <motion.div
+              <div
                 key={i}
-                custom={i} variants={fadeUp} initial="hidden" animate="show"
-                whileHover={{ y: -6, borderColor: 'rgba(79,142,247,0.5)' }}
-                style={{
-                  background: '#080f1e', border: '1px solid rgba(255,255,255,0.07)',
-                  borderRadius: '20px', padding: '32px 28px',
-                  cursor: 'default', transition: 'border-color 0.3s, transform 0.3s',
-                  position: 'relative', overflow: 'hidden',
-                }}
+                className="bg-[#080f1e] border border-white/5 rounded-[20px] px-7 py-8 cursor-default transition-all duration-300 relative overflow-hidden group hover:border-[#4f8ef7]/50 hover:-translate-y-1"
               >
                 {/* Subtle corner accent */}
-                <div style={{
-                  position: 'absolute', top: 0, right: 0,
-                  width: '60px', height: '60px',
-                  background: 'radial-gradient(circle at top right, rgba(79,142,247,0.12), transparent 70%)',
-                }} />
+                <div className="absolute top-0 right-0 w-[60px] h-[60px] bg-[radial-gradient(circle_at_top_right,rgba(79,142,247,0.12),transparent_70%)]" />
 
-                <div style={{ fontSize: '28px', marginBottom: '20px' }}>{stat.icon}</div>
-                <div style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: '64px', fontWeight: 900,
-                  color: '#4f8ef7', lineHeight: 1, marginBottom: '8px',
-                }}>
+                <div className="text-[28px] mb-5 text-[#4f8ef7]">{stat.icon}</div>
+                <div className="text-[64px] font-extrabold text-[#4f8ef7] leading-[1] mb-2">
                   {stat.number}
                 </div>
-                <h3 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '11px', fontWeight: 600,
-                  letterSpacing: '0.15em', color: '#fff',
-                  margin: '0 0 6px', textTransform: 'uppercase',
-                }}>
+                <h3 className="text-[11px] font-semibold tracking-wider text-white m-0 mb-1.5 uppercase">
                   {stat.label}
                 </h3>
-                <p style={{ fontSize: '14px', color: '#555', margin: 0 }}>{stat.desc}</p>
-              </motion.div>
+                <p className="text-sm text-gray-500 m-0">{stat.desc}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -267,56 +147,30 @@ export default function About( ) {
       {/* ════════════════════════════
           SKILLS SECTION
       ════════════════════════════ */}
-      <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '0 32px 120px' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6 }}
-          style={{ marginBottom: '40px' }}
-        >
-          <p style={{
-            fontFamily: "'JetBrains Mono', monospace", fontSize: '11px',
-            color: '#4f8ef7', letterSpacing: '0.2em', marginBottom: '12px',
-          }}>
+      <section className="relative z-10 max-w-[1200px] mx-auto px-8 pb-[120px]">
+        <div className="mb-10">
+          <p className="text-[11px] text-[#4f8ef7] tracking-widest mb-3 font-semibold">
             — TECH STACK
           </p>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(32px, 3.5vw, 52px)',
-            fontWeight: 700, margin: 0,
-          }}>
+          <h2 className="text-[28px] sm:text-[3.5vw] lg:text-[42px] font-bold m-0">
             Tools I work with
           </h2>
-        </motion.div>
+        </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="flex flex-wrap gap-3">
           {skills.map((skill, i) => (
-            <motion.span
+            <span
               key={i}
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.4 }}
-              whileHover={{ scale: 1.07, background: 'rgba(79,142,247,0.15)', borderColor: '#4f8ef7', color: '#4f8ef7' }}
-              style={{
-                padding: '10px 22px', border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: '999px', fontSize: '14px', color: '#bbb',
-                fontFamily: "'JetBrains Mono', monospace",
-                cursor: 'default', transition: 'all 0.2s',
-              }}
+              className="px-[22px] py-2.5 border border-white/10 rounded-full text-sm text-[#bbb] cursor-default transition-all duration-200 hover:scale-105 hover:bg-[#4f8ef7]/15 hover:border-[#4f8ef7] hover:text-[#4f8ef7]"
             >
               {skill}
-            </motion.span>
+            </span>
           ))}
         </div>
       </section>
 
       {/* ─── Bottom ambient glow ─── */}
-      <div style={{
-        position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)',
-        width: '600px', height: '3px',
-        background: 'linear-gradient(to right, transparent, #d4a853, transparent)',
-        zIndex: 50, opacity: 0.6,
-      }} />
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[3px] bg-gradient-to-r from-transparent via-[#d4a853] to-transparent z-50 opacity-60" />
     </div>
   );
 }

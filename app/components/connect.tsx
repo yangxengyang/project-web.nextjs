@@ -42,8 +42,8 @@ const socials = [
     label: 'Facebook',
     sub: '@eki zulfar',
     icon: <LuFacebook size={18} />,
-    color: '#1877F2',              // ← was '#blue' (invalid)
-    bg: 'rgba(24,119,242,0.12)',   // ← was hardcoded '#0a66c2' (LinkedIn color)
+    color: '#1877F2',
+    bg: 'rgba(24,119,242,0.12)',
     href: '#',
     wide: false,
   },
@@ -51,7 +51,7 @@ const socials = [
     label: 'GitHub',
     sub: '@EkiZR',
     icon: <LuGithub size={18} />,
-    color: '#f0f6fc',              // ← GitHub white on dark
+    color: '#f0f6fc',
     bg: 'rgba(240,246,252,0.07)',
     href: 'https://github.com/EkiZR',
     wide: false,
@@ -60,18 +60,11 @@ const socials = [
     label: 'TikTok',
     sub: '@eki_zulfar',
     icon: <SiTiktok size={16} />,
-    color: '#EE1D52',              // ← TikTok red (brand primary)
+    color: '#EE1D52',
     bg: 'rgba(238,29,82,0.10)',
     href: '#',
     wide: false,
   },
-];
-
-/* ─── Sample comments ─── */
-const initialComments: Comment[] = [
-  { id: 1, name: 'Eki', avatar: 'EK', message: 'Ngelag kaga bang?', time: '1h ago' },
-  { id: 2, name: 'Budi Santoso', avatar: 'BS', message: 'Keren banget portfolionya! Keep it up 🔥', time: '3h ago' },
-  { id: 3, name: 'Rina', avatar: 'RI', message: 'Designnya clean abis, suka banget sama color schemenya!', time: '1d ago' },
 ];
 
 const fadeUp = {
@@ -88,8 +81,8 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  /* ── Guestbook state ── */
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  /* ── Guestbook state (Initial array cleared) ── */
+  const [comments, setComments] = useState<Comment[]>([]);
   const [guestName, setGuestName] = useState('');
   const [guestMsg, setGuestMsg] = useState('');
   const [posting, setPosting] = useState(false);
@@ -109,7 +102,10 @@ export default function Contact() {
     if (!guestName.trim() || !guestMsg.trim()) return;
     setPosting(true);
     await new Promise((r) => setTimeout(r, 800));
-    const initials = guestName.trim().split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+    
+    // Generate up to 2 uppercase initials from the input name
+    const initials = guestName.trim().split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase() || '??';
+    
     setComments([
       { id: Date.now(), name: guestName.trim(), avatar: initials, message: guestMsg.trim(), time: 'Just now' },
       ...comments,
@@ -133,17 +129,6 @@ export default function Contact() {
       className="min-h-screen text-white relative overflow-hidden"
       style={{ background: '#060b18', fontFamily: "'DM Sans', sans-serif" }}
     >
-      {/* ─── Fonts ─── */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;600&display=swap');
-        * { box-sizing: border-box; }
-        ::selection { background: #4f8ef7; color: #060b18; }
-        input::placeholder, textarea::placeholder { color: #3a4a60; }
-        input:focus, textarea:focus { border-color: rgba(79,142,247,0.5) !important; }
-        textarea { resize: none; }
-        a:hover { opacity: 0.85; }
-      `}</style>
-
       {/* ─── Ambient glow ─── */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
@@ -173,7 +158,7 @@ export default function Contact() {
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, lineHeight: 1.08, margin: '0 0 20px' }}>
             Let&apos;s <em style={{ color: '#4f8ef7', fontStyle: 'italic' }}>Connect</em>
           </h1>
-          <p style={{ fontSize: '16px', color: '#555', lineHeight: 1.8, maxWidth: '480px', margin: '0 auto' }}>
+          <p style={{ fontSize: '16px', color: '#94a3b8', lineHeight: 1.8, maxWidth: '480px', margin: '0 auto' }}>
             Punya pertanyaan, proyek, atau sekadar ingin ngobrol? Jangan ragu untuk menghubungi saya!
           </p>
         </motion.div>
@@ -237,7 +222,7 @@ export default function Contact() {
                 {/* Submit */}
                 <motion.button
                   type="submit"
-                 whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
+                  whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
                   whileTap={{ scale: 0.97 }}
                   disabled={sending || sent}
                   style={{
@@ -344,7 +329,7 @@ export default function Contact() {
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '26px', fontWeight: 700, margin: 0, lineHeight: 1.2 }}>
               Leave a <em style={{ color: '#4f8ef7', fontStyle: 'italic' }}>note</em>
             </h2>
-            <p style={{ fontSize: '13px', color: '#444', margin: 0, lineHeight: 1.6 }}>
+            <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>
               Tinggalkan pesan, saran, atau sekedar say hi! Semua komentar disambut dengan hangat. 👋
             </p>
 
@@ -401,44 +386,54 @@ export default function Contact() {
             {/* ── Comments list ── */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '360px', overflowY: 'auto', paddingRight: '4px' }}>
               <AnimatePresence initial={false}>
-                {comments.map((c) => (
+                {comments.length === 0 ? (
                   <motion.div
-                    key={c.id}
-                    initial={{ opacity: 0, y: -12, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.35 }}
-                    style={{
-                      display: 'flex', gap: '12px', alignItems: 'flex-start',
-                      background: '#0a1020', border: '1px solid rgba(255,255,255,0.05)',
-                      borderRadius: '14px', padding: '14px 16px',
-                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    style={{ textAlign: 'center', padding: '32px 16px', color: '#475569', fontSize: '13px' }}
                   >
-                    {/* Avatar */}
-                    <div style={{
-                      width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
-                      background: 'linear-gradient(135deg, #4f8ef7, #7c3aed)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '12px', fontWeight: 600, color: '#fff',
-                    }}>
-                      {c.avatar}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '13px', fontWeight: 500, color: '#ddd' }}>{c.name}</span>
-                        <span style={{ fontSize: '11px', color: '#333', fontFamily: "'JetBrains Mono', monospace" }}>{c.time}</span>
-                      </div>
-                      <p style={{ fontSize: '13px', color: '#666', margin: 0, lineHeight: 1.6 }}>{c.message}</p>
-                    </div>
+                    Belum ada komentar. Jadilah yang pertama meninggalkan pesan! ✨
                   </motion.div>
-                ))}
+                ) : (
+                  comments.map((c) => (
+                    <motion.div
+                      key={c.id}
+                      initial={{ opacity: 0, y: -12, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35 }}
+                      style={{
+                        display: 'flex', gap: '12px', alignItems: 'flex-start',
+                        background: '#0a1020', border: '1px solid rgba(255,255,255,0.05)',
+                        borderRadius: '14px', padding: '14px 16px',
+                      }}
+                    >
+                      {/* Avatar */}
+                      <div style={{
+                        width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
+                        background: 'linear-gradient(135deg, #4f8ef7, #7c3aed)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: '12px', fontWeight: 600, color: '#fff',
+                      }}>
+                        {c.avatar}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '13px', fontWeight: 500, color: '#ddd' }}>{c.name}</span>
+                          <span style={{ fontSize: '11px', color: '#64748b', fontFamily: "'JetBrains Mono', monospace" }}>{c.time}</span>
+                        </div>
+                        <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>{c.message}</p>
+                      </div>
+                    </motion.div>
+                  ))
+                )}
               </AnimatePresence>
             </div>
 
             {/* Comment count */}
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#2a3a50', textAlign: 'center', margin: 0, letterSpacing: '0.12em' }}>
-              {comments.length} messages in the guestbook
+            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#475569', textAlign: 'center', margin: 0, letterSpacing: '0.12em' }}>
+              {comments.length} message{comments.length !== 1 ? 's' : ''} in the guestbook
             </p>
           </motion.div>
         </div>

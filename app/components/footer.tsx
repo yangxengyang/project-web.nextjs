@@ -1,9 +1,6 @@
 "use client";
-
-import { BiLogoGmail } from "react-icons/bi";
 import { FaFacebook, FaWhatsapp, FaGithub, FaTiktok } from "react-icons/fa";
-import { SiTiktok } from "react-icons/si";
-import { TbBackground } from "react-icons/tb";
+
 
 const SOCIAL_LINKS = [
   {

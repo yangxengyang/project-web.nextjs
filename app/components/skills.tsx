@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode } from "react";
 import { DiCode } from "react-icons/di";
+import { LiaLaptopCodeSolid } from 'react-icons/lia';
+import { RiOpenaiFill } from 'react-icons/ri';
 
 
 /* ─── Types ─── */
@@ -153,14 +155,22 @@ const certificates = [
     color: '#61dafb',
     icon: '⚛️',
   },
+  {
+   title: 'Open Ai',
+   issuer: 'Ai',
+   date: 'Feb 2024',
+   id: 'udemy-ai-eki',
+   color: '',
+   icon: <RiOpenaiFill size={50}/>
+  },
 ];
 
 /* ─── Tab config ─── */
 
 const tabs: { id: Tab; label: string; icon: ReactNode }[] = [
-  { id: 'projects', label: 'Projects', icon: <DiCode/> },
-  { id: 'certificates', label: 'Certificates', icon: '🏅' },
-  { id: 'techstack', label: 'Tech Stack', icon: '⚡' },
+  { id: 'projects', label: 'Certificates', icon: "🏅" },
+  { id: 'certificates', label: 'Projects', icon: <LiaLaptopCodeSolid size={30} /> },
+  { id: 'techstack', label: 'Skills', icon: "⚡" },
 ];
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.92 },
