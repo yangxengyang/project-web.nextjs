@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images:{
-    domains: ["http://teamplatedev.github.io"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "teamplatedev.github.io",
+      },
+    ],
     unoptimized: true,
   },
 };

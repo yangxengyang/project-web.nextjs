@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 
 
@@ -42,7 +43,7 @@ export default function Homepage() {
 
   return (
       <section
-        id="hero"
+        id="home"
         style={{
           position: "relative",
           width: "100%",

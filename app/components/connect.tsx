@@ -1,15 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LuSend, LuMail, LuUser, LuMessageSquare,
-  LuGithub, LuInstagram, LuLinkedin,
-  LuFacebook,
+  LuGithub,
 } from 'react-icons/lu';
 import { SiTiktok } from 'react-icons/si';
+import { FaFacebook, FaFacebookMessenger, FaWhatsapp } from 'react-icons/fa';
 
-/* ─── Types ─── */
 interface Comment {
   id: number;
   name: string;
@@ -18,53 +18,54 @@ interface Comment {
   time: string;
 }
 
-/* ─── Social links ─── */
 const socials = [
-  {
-    label: "Let's Connect",
-    sub: 'on LinkedIn',
-    icon: <LuLinkedin size={20} />,
-    color: '#0A66C2',
-    bg: 'rgba(10,102,194,0.12)',
-    href: 'https://linkedin.com/in/ekizulfar',
+    {
+      label: "Facebook",
+      sub: "",
+      icon: <FaFacebook size={20} />,
+      color: "#1877F2",
+      bg: "rgba(24,119,242,0.12)",
+      href: "#",
+      wide: false,
+    },
+    {
+    label: "Messenger",
+    sub: "Chat with me",
+    icon: <FaFacebookMessenger size={20} />,
+    color: "#0084FF",
+    bg: "rgba(0,132,255,0.12)",
+    href: "https://m.me/yourusername",
     wide: true,
   },
-  {
-    label: 'Instagram',
-    sub: '@ekizr_',
-    icon: <LuInstagram size={18} />,
-    color: '#E1306C',
-    bg: 'rgba(225,48,108,0.12)',
-    href: 'https://instagram.com/ekizr_',
-    wide: false,
-  },
-  {
-    label: 'Facebook',
-    sub: '@eki zulfar',
-    icon: <LuFacebook size={18} />,
-    color: '#1877F2',
-    bg: 'rgba(24,119,242,0.12)',
-    href: '#',
-    wide: false,
-  },
-  {
-    label: 'GitHub',
-    sub: '@EkiZR',
-    icon: <LuGithub size={18} />,
-    color: '#f0f6fc',
-    bg: 'rgba(240,246,252,0.07)',
-    href: 'https://github.com/EkiZR',
-    wide: false,
-  },
-  {
-    label: 'TikTok',
-    sub: '@eki_zulfar',
-    icon: <SiTiktok size={16} />,
-    color: '#EE1D52',
-    bg: 'rgba(238,29,82,0.10)',
-    href: '#',
-    wide: false,
-  },
+      {
+      label: "WhatsApp",
+      sub: "Chat with me",
+      icon: <FaWhatsapp size={18} />,
+      color: "#25D366",
+      bg: "rgba(37,211,102,0.12)",
+      href: "https://wa.me/85620XXXXXXXX",
+      wide: true,
+    },
+
+    {
+      label: "GitHub",
+      sub: "",
+      icon: <LuGithub size={18} />,
+      color: "#f0f6fc",
+      bg: "rgba(240,246,252,0.07)",
+      href: "https://github.com/EkiZR",
+      wide: false,
+    },
+
+    {
+      label: "TikTok",
+      sub: "",
+      icon: <SiTiktok size={16} />,
+      color: "#EE1D52",
+      bg: "rgba(238,29,82,0.10)",
+      href: "#",
+      wide: false,
+    },
 ];
 
 const fadeUp = {
@@ -76,12 +77,9 @@ const fadeUp = {
 };
 
 export default function Contact() {
-  /* ── Form state ── */
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
-
-  /* ── Guestbook state (Initial array cleared) ── */
   const [comments, setComments] = useState<Comment[]>([]);
   const [guestName, setGuestName] = useState('');
   const [guestMsg, setGuestMsg] = useState('');
@@ -102,10 +100,7 @@ export default function Contact() {
     if (!guestName.trim() || !guestMsg.trim()) return;
     setPosting(true);
     await new Promise((r) => setTimeout(r, 800));
-    
-    // Generate up to 2 uppercase initials from the input name
     const initials = guestName.trim().split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase() || '??';
-    
     setComments([
       { id: Date.now(), name: guestName.trim(), avatar: initials, message: guestMsg.trim(), time: 'Just now' },
       ...comments,
@@ -115,137 +110,121 @@ export default function Contact() {
     setPosting(false);
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '14px 16px 14px 44px',
-    background: '#0a1020', border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '12px', color: '#ddd', fontSize: '14px',
-    fontFamily: "'DM Sans', sans-serif",
-    outline: 'none', transition: 'border-color 0.2s',
-  };
+  const inputClass =
+    'w-full py-[14px] pr-4 pl-11 bg-[#0a1020] border border-white/[0.08] rounded-xl text-[#ddd] text-sm outline-none transition-colors duration-200 focus:border-[#4f8ef7]/50 font-dm placeholder:text-[#444]';
 
   return (
-    <div
-      id="contact"
-      className="min-h-screen text-white relative overflow-hidden"
-      style={{ background: '#060b18', fontFamily: "'DM Sans', sans-serif" }}
-    >
-      {/* ─── Ambient glow ─── */}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 55% 40% at 20% 60%, rgba(79,142,247,0.11) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 80% 20%, rgba(30,64,175,0.09) 0%, transparent 60%)',
-      }} />
+    <div id="connect" className="min-h-screen bg-[#060b18] text-white relative overflow-hidden font-dm">
+      <div className="pointer-events-none absolute inset-0 z-0"
+        style={{ background: 'radial-gradient(ellipse 55% 40% at 20% 60%, rgba(79,142,247,0.11) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 80% 20%, rgba(30,64,175,0.09) 0%, transparent 60%)' }}
+      />
 
       {/* ─── Grid texture ─── */}
-      <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.03 }} xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full z-0 opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
         <defs><pattern id="cg" width="80" height="80" patternUnits="userSpaceOnUse">
           <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#4f8ef7" strokeWidth="0.5" />
         </pattern></defs>
         <rect width="100%" height="100%" fill="url(#cg)" />
       </svg>
 
-      {/* ════════════════ CONTENT ════════════════ */}
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '100px 32px 120px' }}>
+      {/* ════════ CONTENT ════════ */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-8 pt-[100px] pb-[120px]">
 
         {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          style={{ textAlign: 'center', marginBottom: '72px' }}
+          className="text-center mb-[72px]"
         >
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', color: '#4f8ef7', letterSpacing: '0.22em', marginBottom: '16px' }}>
-            — GET IN TOUCH
+          <p className="font-mono-jb text-[12px] text-[#4f8ef7] tracking-[0.22em] mb-4 uppercase">
+            — Get In Touch
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, lineHeight: 1.08, margin: '0 0 20px' }}>
-            Let&apos;s <em style={{ color: '#4f8ef7', fontStyle: 'italic' }}>Connect</em>
+          <h1 className="font-playfair font-black text-[clamp(40px,5vw,68px)] leading-[1.08] mb-5">
+            Let&apos;s <em className="text-[#4f8ef7] not-italic">Connect</em>
           </h1>
-          <p style={{ fontSize: '16px', color: '#94a3b8', lineHeight: 1.8, maxWidth: '480px', margin: '0 auto' }}>
+          <p className="text-base text-[#94a3b8] leading-[1.8] max-w-[480px] mx-auto">
             Punya pertanyaan, proyek, atau sekadar ingin ngobrol? Jangan ragu untuk menghubungi saya!
           </p>
         </motion.div>
 
         {/* ══════════ MAIN GRID ══════════ */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'start' }}>
+        <div className="grid grid-cols-2 gap-8 items-start">
 
           {/* ════ LEFT COLUMN ════ */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="flex flex-col gap-6">
 
             {/* ── Contact Form ── */}
             <motion.div
               custom={0} variants={fadeUp} initial="hidden" animate="show"
-              style={{
-                background: '#080f1e', border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: '24px', padding: '32px',
-              }}
+              className="bg-[#080f1e] border border-white/[0.07] rounded-3xl p-8"
             >
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4f8ef7', letterSpacing: '0.18em', marginBottom: '24px' }}>
-                — SEND A MESSAGE
+              <p className="font-mono-jb text-[11px] text-[#4f8ef7] tracking-[0.18em] mb-6 uppercase">
+                — Send a Message
               </p>
 
-              <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form onSubmit={handleSend} className="flex flex-col gap-4">
                 {/* Name */}
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#4f8ef7', display: 'flex' }}>
+                <div className="relative">
+                  <span className="absolute left-[14px] top-1/2 -translate-y-1/2 text-[#4f8ef7] flex">
                     <LuUser size={16} />
                   </span>
                   <input
                     type="text" placeholder="Your Name"
                     value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    style={inputStyle}
+                    className={inputClass}
                   />
                 </div>
 
                 {/* Email */}
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#4f8ef7', display: 'flex' }}>
+                <div className="relative">
+                  <span className="absolute left-[14px] top-1/2 -translate-y-1/2 text-[#4f8ef7] flex">
                     <LuMail size={16} />
                   </span>
                   <input
                     type="email" placeholder="Your Email"
                     value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    style={inputStyle}
+                    className={inputClass}
                   />
                 </div>
 
                 {/* Message */}
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: '14px', top: '16px', color: '#4f8ef7', display: 'flex' }}>
+                <div className="relative">
+                  <span className="absolute left-[14px] top-4 text-[#4f8ef7] flex">
                     <LuMessageSquare size={16} />
                   </span>
                   <textarea
                     placeholder="Your Message"
                     rows={5}
                     value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    style={{ ...inputStyle, paddingTop: '14px', paddingBottom: '14px' }}
+                    className={inputClass}
                   />
                 </div>
 
                 {/* Submit */}
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
+                  whileHover={{ scale: 1.02, filter: 'brightness(1.1)' }}
                   whileTap={{ scale: 0.97 }}
                   disabled={sending || sent}
-                  style={{
-                    width: '100%', padding: '16px',
-                    background: sent
-                      ? 'rgba(79,200,120,0.2)'
-                      : 'linear-gradient(135deg, #4f8ef7 0%, #2563eb 100%)',
-                    border: sent ? '1px solid rgba(79,200,120,0.4)' : 'none',
-                    borderRadius: '12px', color: sent ? '#4fc878' : '#fff',
-                    fontSize: '15px', fontWeight: 500,
-                    cursor: sending || sent ? 'not-allowed' : 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                    transition: 'all 0.3s',
-                    fontFamily: "'DM Sans', sans-serif",
-                  }}
+                  className={`
+                    w-full py-4 rounded-xl text-[15px] font-medium
+                    flex items-center justify-center gap-2.5 transition-all duration-300
+                    font-dm cursor-pointer disabled:cursor-not-allowed
+                    ${sent
+                      ? 'bg-[rgba(79,200,120,0.2)] border border-[rgba(79,200,120,0.4)] text-[#4fc878]'
+                      : 'bg-gradient-to-br from-[#4f8ef7] to-[#2563eb] text-white border-none'
+                    }
+                  `}
                 >
                   {sent ? (
                     <>✓ Message Sent!</>
                   ) : sending ? (
                     <>
-                      <motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }} style={{ display: 'inline-block' }}>
-                        ⟳
-                      </motion.span>
+                      <motion.span
+                        animate={{ rotate: 360 }}
+                        transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}
+                        className="inline-block"
+                      >⟳</motion.span>
                       Sending...
                     </>
                   ) : (
@@ -258,54 +237,43 @@ export default function Contact() {
             {/* ── Connect With Me ── */}
             <motion.div
               custom={1} variants={fadeUp} initial="hidden" animate="show"
-              style={{
-                background: '#080f1e', border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: '24px', padding: '28px',
-              }}
+              className="bg-[#080f1e] border border-white/[0.07] rounded-3xl p-7"
             >
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4f8ef7', letterSpacing: '0.18em', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ width: '24px', height: '1px', background: '#4f8ef7', display: 'inline-block' }} />
-                CONNECT WITH ME
+              <p className="font-mono-jb text-[11px] text-[#4f8ef7] tracking-[0.18em] mb-5 flex items-center gap-2 uppercase">
+                <span className="inline-block w-6 h-px bg-[#4f8ef7]" />
+                Connect With Me
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div className="flex flex-col gap-2.5">
                 {/* LinkedIn — full width */}
                 <motion.a
                   href={socials[0].href} target="_blank" rel="noreferrer"
-                  whileHover={{ x: 4, borderColor: `${socials[0].color}44` }}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '14px',
-                    padding: '16px 18px', borderRadius: '14px',
-                    background: socials[0].bg, border: '1px solid rgba(255,255,255,0.06)',
-                    textDecoration: 'none', transition: 'border-color 0.2s, transform 0.2s',
-                  }}
+                  whileHover={{ x: 4 }}
+                  className="flex items-center gap-3.5 px-[18px] py-4 rounded-2xl border border-white/[0.06] no-underline transition-all duration-200"
+                  style={{ background: socials[0].bg }}
                 >
-                  <span style={{ color: socials[0].color, display: 'flex', flexShrink: 0 }}>{socials[0].icon}</span>
+                  <span className="flex shrink-0" style={{ color: socials[0].color }}>{socials[0].icon}</span>
                   <div>
-                    <p style={{ margin: 0, color: '#eee', fontSize: '14px', fontWeight: 500 }}>{socials[0].label}</p>
-                    <p style={{ margin: 0, color: '#555', fontSize: '12px', fontFamily: "'JetBrains Mono', monospace" }}>{socials[0].sub}</p>
+                    <p className="m-0 text-[#eee] text-sm font-medium">{socials[0].label}</p>
+                    <p className="m-0 text-[#555] text-[12px] font-mono-jb">{socials[0].sub}</p>
                   </div>
-                  <span style={{ marginLeft: 'auto', color: '#333', fontSize: '18px' }}>↗</span>
+                  <span className="ml-auto text-[#333] text-lg">↗</span>
                 </motion.a>
 
-                {/* 2×2 grid for the rest */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                {/* 2×2 grid */}
+                <div className="grid grid-cols-2 gap-2.5">
                   {socials.slice(1).map((s) => (
                     <motion.a
                       key={s.label}
                       href={s.href} target="_blank" rel="noreferrer"
-                      whileHover={{ y: -3, borderColor: `${s.color}44` }}
-                      style={{
-                        display: 'flex', alignItems: 'center', gap: '12px',
-                        padding: '14px 16px', borderRadius: '14px',
-                        background: s.bg, border: '1px solid rgba(255,255,255,0.06)',
-                        textDecoration: 'none', transition: 'border-color 0.2s, transform 0.2s',
-                      }}
+                      whileHover={{ y: -3 }}
+                      className="flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-white/[0.06] no-underline transition-all duration-200"
+                      style={{ background: s.bg }}
                     >
-                      <span style={{ color: s.color, display: 'flex', flexShrink: 0 }}>{s.icon}</span>
-                      <div style={{ minWidth: 0 }}>
-                        <p style={{ margin: 0, color: '#eee', fontSize: '13px', fontWeight: 500 }}>{s.label}</p>
-                        <p style={{ margin: 0, color: '#444', fontSize: '11px', fontFamily: "'JetBrains Mono', monospace", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.sub}</p>
+                      <span className="flex shrink-0" style={{ color: s.color }}>{s.icon}</span>
+                      <div className="min-w-0">
+                        <p className="m-0 text-[#eee] text-[13px] font-medium">{s.label}</p>
+                        <p className="m-0 text-[#444] text-[11px] font-mono-jb truncate">{s.sub}</p>
                       </div>
                     </motion.a>
                   ))}
@@ -317,80 +285,71 @@ export default function Contact() {
           {/* ════ RIGHT COLUMN — Guestbook ════ */}
           <motion.div
             custom={2} variants={fadeUp} initial="hidden" animate="show"
-            style={{
-              background: '#080f1e', border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '24px', padding: '32px',
-              display: 'flex', flexDirection: 'column', gap: '20px',
-            }}
+            className="bg-[#080f1e] border border-white/[0.07] rounded-3xl p-8 flex flex-col gap-5"
           >
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4f8ef7', letterSpacing: '0.18em', margin: 0 }}>
-              — GUESTBOOK
+            <p className="font-mono-jb text-[11px] text-[#4f8ef7] tracking-[0.18em] m-0 uppercase">
+              — Guestbook
             </p>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '26px', fontWeight: 700, margin: 0, lineHeight: 1.2 }}>
-              Leave a <em style={{ color: '#4f8ef7', fontStyle: 'italic' }}>note</em>
+            <h2 className="font-playfair text-[26px] font-bold m-0 leading-snug">
+              Leave a <em className="text-[#4f8ef7] not-italic">note</em>
             </h2>
-            <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>
+            <p className="text-[13px] text-[#94a3b8] m-0 leading-relaxed">
               Tinggalkan pesan, saran, atau sekedar say hi! Semua komentar disambut dengan hangat. 👋
             </p>
 
             {/* ── Post form ── */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {/* Name input */}
-              <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: '#4f8ef7', display: 'flex' }}>
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <span className="absolute left-[14px] top-1/2 -translate-y-1/2 text-[#4f8ef7] flex">
                   <LuUser size={15} />
                 </span>
                 <input
                   type="text" placeholder="Your Name"
                   value={guestName} onChange={(e) => setGuestName(e.target.value)}
-                  style={{ ...inputStyle, fontSize: '13px' }}
+                  className={`${inputClass} text-[13px]`}
                 />
               </div>
 
-              {/* Message */}
-              <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: '14px', top: '14px', color: '#4f8ef7', display: 'flex' }}>
+              <div className="relative">
+                <span className="absolute left-[14px] top-[14px] text-[#4f8ef7] flex">
                   <LuMessageSquare size={15} />
                 </span>
                 <textarea
                   placeholder="Write your message here..."
                   rows={4}
                   value={guestMsg} onChange={(e) => setGuestMsg(e.target.value)}
-                  style={{ ...inputStyle, fontSize: '13px', paddingTop: '14px' }}
+                  className={`${inputClass} text-[13px]`}
                 />
               </div>
 
-              {/* Post button */}
               <motion.button
                 onClick={handlePost}
                 whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
                 disabled={posting}
-                style={{
-                  width: '100%', padding: '14px',
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #4f8ef7 100%)',
-                  border: 'none', borderRadius: '12px',
-                  color: '#fff', fontSize: '14px', fontWeight: 500,
-                  cursor: posting ? 'wait' : 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                  fontFamily: "'DM Sans', sans-serif", transition: 'opacity 0.2s',
-                  opacity: posting ? 0.7 : 1,
-                }}
+                className={`
+                  w-full py-3.5 bg-gradient-to-br from-[#7c3aed] to-[#4f8ef7]
+                  border-none rounded-xl text-white text-sm font-medium
+                  flex items-center justify-center gap-2 font-dm
+                  transition-opacity duration-200 cursor-pointer
+                  ${posting ? 'opacity-70 cursor-wait' : 'opacity-100'}
+                `}
               >
                 {posting ? '⟳ Posting...' : <><LuSend size={14} /> Post Comment</>}
               </motion.button>
             </div>
 
             {/* ─── Divider ─── */}
-            <div style={{ height: '1px', background: 'linear-gradient(to right, transparent, rgba(79,142,247,0.25), transparent)' }} />
+            <div className="h-px"
+              style={{ background: 'linear-gradient(to right, transparent, rgba(79,142,247,0.25), transparent)' }}
+            />
 
             {/* ── Comments list ── */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '360px', overflowY: 'auto', paddingRight: '4px' }}>
+            <div className="flex flex-col gap-3 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
               <AnimatePresence initial={false}>
                 {comments.length === 0 ? (
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    style={{ textAlign: 'center', padding: '32px 16px', color: '#475569', fontSize: '13px' }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    className="text-center py-8 px-4 text-[#475569] text-[13px]"
                   >
                     Belum ada komentar. Jadilah yang pertama meninggalkan pesan! ✨
                   </motion.div>
@@ -402,28 +361,20 @@ export default function Contact() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.35 }}
-                      style={{
-                        display: 'flex', gap: '12px', alignItems: 'flex-start',
-                        background: '#0a1020', border: '1px solid rgba(255,255,255,0.05)',
-                        borderRadius: '14px', padding: '14px 16px',
-                      }}
+                      className="flex gap-3 items-start bg-[#0a1020] border border-white/[0.05] rounded-2xl px-4 py-3.5"
                     >
                       {/* Avatar */}
-                      <div style={{
-                        width: '38px', height: '38px', borderRadius: '50%', flexShrink: 0,
-                        background: 'linear-gradient(135deg, #4f8ef7, #7c3aed)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: '12px', fontWeight: 600, color: '#fff',
-                      }}>
+                      <div className="w-[38px] h-[38px] rounded-full shrink-0 flex items-center justify-center font-mono-jb text-[12px] font-semibold text-white"
+                        style={{ background: 'linear-gradient(135deg, #4f8ef7, #7c3aed)' }}
+                      >
                         {c.avatar}
                       </div>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                          <span style={{ fontSize: '13px', fontWeight: 500, color: '#ddd' }}>{c.name}</span>
-                          <span style={{ fontSize: '11px', color: '#64748b', fontFamily: "'JetBrains Mono', monospace" }}>{c.time}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-[13px] font-medium text-[#ddd]">{c.name}</span>
+                          <span className="text-[11px] text-[#64748b] font-mono-jb">{c.time}</span>
                         </div>
-                        <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>{c.message}</p>
+                        <p className="text-[13px] text-[#94a3b8] m-0 leading-relaxed">{c.message}</p>
                       </div>
                     </motion.div>
                   ))
@@ -432,7 +383,7 @@ export default function Contact() {
             </div>
 
             {/* Comment count */}
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#475569', textAlign: 'center', margin: 0, letterSpacing: '0.12em' }}>
+            <p className="font-mono-jb text-[11px] text-[#475569] text-center m-0 tracking-[0.12em]">
               {comments.length} message{comments.length !== 1 ? 's' : ''} in the guestbook
             </p>
           </motion.div>
@@ -440,12 +391,9 @@ export default function Contact() {
       </div>
 
       {/* ─── Bottom glow line ─── */}
-      <div style={{
-        position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)',
-        width: '600px', height: '3px',
-        background: 'linear-gradient(to right, transparent, #4f8ef7, transparent)',
-        zIndex: 50, opacity: 0.5,
-      }} />
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[3px] z-50 opacity-50"
+        style={{ background: 'linear-gradient(to right, transparent, #4f8ef7, transparent)' }}
+      />
     </div>
   );
 }

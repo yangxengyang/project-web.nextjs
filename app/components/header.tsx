@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { BsGithub, BsWhatsapp } from "react-icons/bs";
 import { SiGmail } from "react-icons/si";
 import Image from "next/image";
-
+import { li } from "framer-motion/client";
 const navItems = [
-  { label: "Home", href: "#home", badge: false },
-  { label: "About Me", href: "#about", badge: false },
-  { label: "Projects", href: "#projects", badge: false },
-  { label: "Skills", href: "#skills", badge: true },
-  { label: "Contact", href: "#contact", badge: true },
+  { label: "Home", Link: "#home", badge: false },
+  { label: "About Me", Link: "#about", badge: false },
+  { label: "Projects", Link: "#projects", badge: false },
+  { label: "Contact", Link: "#connect", badge: true },
 ];
 
 export default function Header() {
@@ -54,7 +53,7 @@ export default function Header() {
         {navItems.map((item) => (
           <li key={item.label}>
             <a
-              href={item.href}
+              href={item.Link}
               onClick={() => setActive(item.label)}
               className={`flex items-center gap-2 px-4 py-2 rounded-md text-[11.5px] font-semibold tracking-[0.1em] uppercase transition-all duration-200 ${
                 active === item.label
@@ -141,7 +140,7 @@ export default function Header() {
           {navItems.map((item) => (
             <li key={item.label}>
               <a
-                href={item.href}
+                href={item.Link}
                 onClick={() => {
                   setActive(item.label);
                   setMenuOpen(false);

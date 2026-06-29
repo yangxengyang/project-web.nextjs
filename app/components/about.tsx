@@ -4,11 +4,27 @@ import Image from 'next/image';
 import { PiCodeBold, PiGlobeBold, PiMedalBold } from "react-icons/pi";
 import { FcDownload } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
+import Link from 'next/link';
 
 const stats = [
-  { icon: <PiCodeBold className="text-[28px]" />, number: '11', label: 'Total Projects', desc: 'Innovative web solutions crafted' },
-  { icon: <PiMedalBold className="text-[28px]" />, number: '7',  label: 'Certificates',   desc: 'Professional skills validated'   },
-  { icon: <PiGlobeBold className="text-[28px]" />, number: '3',  label: 'Years Active',   desc: 'Continuous learning journey'     },
+  {
+    icon: PiCodeBold,
+    number: 11,
+    label: "Projects",
+    description: "Innovative web solutions crafted",
+  },
+  {
+    icon: PiMedalBold,
+    number: 7,
+    label: "Certificates",
+    description: "Professional skills validated",
+  },
+  {
+    icon: PiGlobeBold,
+    number: 3,
+    label: "Years Active",
+    description: "Continuous learning journey",
+  },
 ];
 
 const skills = ['HTML & CSS', 'JavaScript', 'React.js', 'Next.js', 'Tailwind CSS', 'Figma', 'Git', 'Node.js'];
@@ -16,7 +32,7 @@ const skills = ['HTML & CSS', 'JavaScript', 'React.js', 'Next.js', 'Tailwind CSS
 export default function About() {
   return (
     <div
-      id="About"
+      id="about"
       className="min-h-screen text-white overflow-hidden relative bg-[#060b18] font-sans selection:bg-[#4f8ef7] selection:text-[#060b18]"
     >
       {/* ─── Ambient background ─── */}
@@ -116,31 +132,6 @@ export default function About() {
               </div>
             </div>
           </div>
-
-          {/* ─── Divider ─── */}
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-[#4f8ef7]/40 to-transparent" />
-
-          {/* ─── Stats row ─── */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="bg-[#080f1e] border border-white/5 rounded-[20px] px-7 py-8 cursor-default transition-all duration-300 relative overflow-hidden group hover:border-[#4f8ef7]/50 hover:-translate-y-1"
-              >
-                {/* Subtle corner accent */}
-                <div className="absolute top-0 right-0 w-[60px] h-[60px] bg-[radial-gradient(circle_at_top_right,rgba(79,142,247,0.12),transparent_70%)]" />
-
-                <div className="text-[28px] mb-5 text-[#4f8ef7]">{stat.icon}</div>
-                <div className="text-[64px] font-extrabold text-[#4f8ef7] leading-[1] mb-2">
-                  {stat.number}
-                </div>
-                <h3 className="text-[11px] font-semibold tracking-wider text-white m-0 mb-1.5 uppercase">
-                  {stat.label}
-                </h3>
-                <p className="text-sm text-gray-500 m-0">{stat.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -148,13 +139,19 @@ export default function About() {
           SKILLS SECTION
       ════════════════════════════ */}
       <section className="relative z-10 max-w-[1200px] mx-auto px-8 pb-[120px]">
-        <div className="mb-10">
+            <div className="mb-10">
           <p className="text-[11px] text-[#4f8ef7] tracking-widest mb-3 font-semibold">
             — TECH STACK
           </p>
-          <h2 className="text-[28px] sm:text-[3.5vw] lg:text-[42px] font-bold m-0">
-            Tools I work with
+
+          <h2 className="text-[28px] sm:text-[3.5vw] lg:text-[42px] font-bold m-0 leading-tight">
+            Tools I use to build modern digital experiences
           </h2>
+
+          <p className="text-sm text-white/40 mt-3 max-w-[520px] leading-relaxed">
+            A curated set of technologies, frameworks, and tools I rely on to design, develop,
+            and deliver fast, scalable, and user-friendly applications.
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-3">
