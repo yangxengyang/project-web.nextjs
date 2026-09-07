@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { PiCodeBold, PiGlobeBold, PiMedalBold } from "react-icons/pi";
 import { FcDownload } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
-import Link from 'next/link';
 
 const stats = [
   {
@@ -105,7 +104,7 @@ export default function About() {
               </h1>
 
               <p className="text-base text-[#999] leading-[1.7] max-w-[420px] m-0">
-                I'm Xeng, a Computer Science student and Software developer
+                I&apos;m Xeng, a Computer Science student and Software developer
                 passionate about creating beautiful, scalable, and interactive
                 web applications. I love turning ideas into real digital products.
               </p>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { BsGithub, BsWhatsapp } from "react-icons/bs";
 import { SiGmail } from "react-icons/si";
 import Image from "next/image";
-import { li } from "framer-motion/client";
+
 const navItems = [
   { label: "Home", Link: "#home", badge: false },
   { label: "About Me", Link: "#about", badge: false },
